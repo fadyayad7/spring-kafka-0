@@ -17,7 +17,7 @@ public class SpringKafka0Application {
     @Bean
     CommandLineRunner commandLineRunner(KafkaTemplate<String, String> kafkaTemplate){
         return args -> {
-            LoopFactory.execute(100, () -> kafkaTemplate.send("general", "Hey dad 👋"));
+            LoopFactory.execute(5, () -> kafkaTemplate.send("general", "Hey dad 👋"));
         };
     }
 
