@@ -7,6 +7,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.kafka.core.KafkaTemplate;
 
+import java.time.LocalDateTime;
+
 @SpringBootApplication
 public class SpringKafka0Application {
 
@@ -15,9 +17,14 @@ public class SpringKafka0Application {
     }
 
     @Bean
-    CommandLineRunner commandLineRunner(KafkaTemplate<String, String> kafkaTemplate){
+    CommandLineRunner commandLineRunner(KafkaTemplate<String, Message> kafkaTemplate){
         return args -> {
-            LoopFactory.execute(5, () -> kafkaTemplate.send("general", "Hey dad 👋"));
+            LoopFactory.execute(
+                    5,
+                    () -> kafkaTemplate.send(
+                            "general",
+                            new Message("Hey dad 👋", LocalDateTime.now()))
+                    );
         };
     }
 

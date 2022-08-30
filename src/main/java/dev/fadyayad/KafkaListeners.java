@@ -7,11 +7,13 @@ import org.springframework.stereotype.Component;
 @Component
 @Slf4j
 public class KafkaListeners {
+
     @KafkaListener(
             topics = "general",
-            groupId = "someId"
+            groupId = "someId",
+            containerFactory = "messageFactory"
     )
-    void listener (String data){
-        log.info("🚀 Received from Kafka: {}", data);
+    void listener (Message data){
+        log.info("🚀 Received from Kafka: {}", data.message());
     }
 }
